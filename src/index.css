@@ -1575,6 +1575,13 @@ h4 { font-size: 1.25rem; }
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
+.hero__h1-alt {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
 .hero__blink {
   color: var(--color-accent);
   animation: blink 1.2s ease-in-out infinite;

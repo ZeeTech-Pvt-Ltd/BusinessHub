@@ -31,7 +31,7 @@ export default function Hero({ onOpenModal, onContextSelect, onFormSubmit }) {
             <h1>
               Take Payments Faster. Pay Less.{' '}
               <br className="hero__h1-br" />
-              Flexible Eligibility Criteria For{' '}
+              <span className="hero__h1-alt">Flexible Eligibility Criteria For</span>{' '}
               <span className="hero__blink">Limited Time.</span>
             </h1>
 

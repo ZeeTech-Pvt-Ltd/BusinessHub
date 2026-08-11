@@ -14,6 +14,10 @@ export default function Footer() {
         <div className="footer__disclaimer">
           <p>{FOOTER.disclaimer}</p>
           <p style={{ marginTop: 16 }}>
+            <a href="https://britsbusinesshub.net/privacy-policy/" target="_blank" rel="noopener noreferrer" style={{ color: '#aaa', textDecoration: 'underline' }}>
+              Privacy Policy
+            </a>
+            {' '}·{' '}
             © {new Date().getFullYear()} Brits Business Hub. All rights reserved.
           </p>
         </div>
