@@ -19,9 +19,11 @@ import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import EnquiryModal from './components/EnquiryModal';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import ThankYou from './components/ThankYou';
 
 export default function App() {
   const [modalPrefill, setModalPrefill] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleContextSelect = useCallback((context) => {
     setModalPrefill(context);
@@ -31,6 +33,26 @@ export default function App() {
     setModalPrefill(null);
   }, []);
 
+  const handleFormSubmit = useCallback(() => {
+    setModalPrefill(null);
+    setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleBackToHome = useCallback(() => {
+    setSubmitted(false);
+  }, []);
+
+  if (submitted) {
+    return (
+      <>
+        <Header />
+        <ThankYou onBack={handleBackToHome} />
+        <WhatsAppFloat />
+      </>
+    );
+  }
+
   return (
     <>
       <Header />
@@ -38,6 +60,7 @@ export default function App() {
         <Hero
           onOpenModal={handleContextSelect}
           onContextSelect={handleContextSelect}
+          onFormSubmit={handleFormSubmit}
         />
 
         <TrustStrip />
@@ -73,7 +96,7 @@ export default function App() {
         <FinalCTA onContextSelect={handleContextSelect} />
       </main>
 
-      <EnquiryModal prefill={modalPrefill} onClose={handleCloseModal} />
+      <EnquiryModal prefill={modalPrefill} onClose={handleCloseModal} onFormSubmit={handleFormSubmit} />
       <WhatsAppFloat />
     </>
   );

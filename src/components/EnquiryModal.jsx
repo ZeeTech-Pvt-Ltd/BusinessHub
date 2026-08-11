@@ -1,6 +1,6 @@
 import MultiStepForm from './MultiStepForm';
 
-export default function EnquiryModal({ prefill, onClose }) {
+export default function EnquiryModal({ prefill, onClose, onFormSubmit }) {
   if (!prefill) return null;
 
   return (
@@ -46,7 +46,7 @@ export default function EnquiryModal({ prefill, onClose }) {
             Reason: {prefill.reason}
           </p>
         )}
-        <MultiStepForm prefill={prefill} onClose={onClose} compact />
+        <MultiStepForm prefill={prefill} onClose={onClose} compact onFormSubmit={onFormSubmit} />
       </div>
     </div>
   );

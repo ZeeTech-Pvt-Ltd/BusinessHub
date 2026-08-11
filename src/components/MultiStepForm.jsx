@@ -5,9 +5,9 @@ export default function MultiStepForm({
   prefill = {},
   onClose,
   compact = false,
+  onFormSubmit,
 }) {
   const [step, setStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     service: prefill.service || prefill.machineType || '',
     businessType: prefill.businessType || '',
@@ -45,7 +45,9 @@ export default function MultiStepForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (onFormSubmit) {
+      onFormSubmit();
+    }
   };
 
   const renderStep1 = () => (
@@ -193,45 +195,6 @@ export default function MultiStepForm({
         return null;
     }
   };
-
-  if (submitted) {
-    return (
-      <div style={{ textAlign: 'center', padding: '20px 0' }}>
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: '50%',
-            background: 'var(--color-accent)',
-            color: '#000',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '2rem',
-            margin: '0 auto 16px',
-          }}
-        >
-          ✓
-        </div>
-        <h4 style={{ marginBottom: 8, color: 'var(--color-text)' }}>
-          Thank You!
-        </h4>
-        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-          Your enquiry has been received. We'll be in touch shortly to discuss
-          suitable options.
-        </p>
-        {onClose && (
-          <button
-            className="btn btn--primary"
-            style={{ marginTop: 20 }}
-            onClick={onClose}
-          >
-            Close
-          </button>
-        )}
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit}>

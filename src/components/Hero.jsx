@@ -1,7 +1,7 @@
 import { HERO } from '../data/content';
 import MultiStepForm from './MultiStepForm';
 
-export default function Hero({ onOpenModal, onContextSelect }) {
+export default function Hero({ onOpenModal, onContextSelect, onFormSubmit }) {
   return (
     <section className="hero" id="home">
       <div className="hero__video-wrapper">
@@ -95,7 +95,7 @@ export default function Hero({ onOpenModal, onContextSelect }) {
               <p className="hero__form-subtitle">
                 Answer a few quick questions and we'll find the best options for your business.
               </p>
-              <MultiStepForm />
+              <MultiStepForm onFormSubmit={onFormSubmit} />
             </div>
           </div>
         </div>
