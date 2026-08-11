@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.env
+.env.localRemove-Item -Recurse -Force node_modules
