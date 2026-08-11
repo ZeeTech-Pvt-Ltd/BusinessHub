@@ -15,7 +15,7 @@ export const NAV_LINKS = [
 
 export const HERO = {
   eyebrow: 'CARD MACHINES & EPOS FOR UK BUSINESSES',
-  headline: 'Take Payments Faster. Pay Less. Run Your Business Smarter.',
+  headline: 'Take Payments Faster. Pay Less. Flexible Eligibility Criteria For\xa0Limited Time.',
   subtext:
     'Find a card machine, EPOS system or integrated payment setup built around the way your business operates.',
   subtextSecondary:
@@ -583,5 +583,9 @@ export const FOOTER = {
     { label: 'Terms & Conditions', href: '#' },
     { label: 'Complaints', href: '#' },
   ],
-  disclaimer: `Brits Business Hub is a third-party business services introducer and support agent. We do not supply card machines, EPOS systems or business finance directly — these are provided by independent third-party providers under their own agreements. We may receive a commission or fee from providers when a business enters into an agreement with them. Approval, pricing and terms are always subject to the provider's assessment and eligibility criteria. Nothing on this website constitutes financial advice, a guarantee of acceptance or a promise of specific pricing. You should review all provider terms carefully before entering into any agreement.`,
+  disclaimer: `Important third-party service disclaimer: Brits Business Hub is a third-party business services introducer and support agent. We are not a bank, lender, payment processor, merchant acquirer, card-terminal manufacturer, EPOS manufacturer or the underlying supplier of the products promoted on this website. Card-machine, EPOS and finance products are provided by independent third parties under separate provider agreements.
+
+Availability, eligibility, pricing, transaction rates, rental charges, hardware, connectivity, settlement times, integrations, finance amounts, repayment structures and contract terms vary according to the provider and the applicant's circumstances. We do not guarantee approval, acceptance, cost savings, funding, any particular rate or the availability of a specific product.
+
+Brits Business Hub is an introducer and not a lender, does not make lending decisions and does not provide financial advice. Business finance is subject to the relevant provider's assessment, checks, approval and terms. Where applicable, we may receive a commission or referral payment from a provider following an introduction. Read our full role and service disclaimer.`,
 };

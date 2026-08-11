@@ -18,6 +18,7 @@ import WhyChooseUs from './components/WhyChooseUs';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import EnquiryModal from './components/EnquiryModal';
+import Footer from './components/Footer';
 import ThankYou from './components/ThankYou';
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
       <>
         <Header />
         <ThankYou onBack={handleBackToHome} />
+        <Footer />
       </>
     );
   }
@@ -94,6 +96,7 @@ export default function App() {
         <FinalCTA onContextSelect={handleContextSelect} />
       </main>
 
+      <Footer />
       <EnquiryModal prefill={modalPrefill} onClose={handleCloseModal} onFormSubmit={handleFormSubmit} />
     </>
   );

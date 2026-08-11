@@ -28,7 +28,12 @@ export default function Hero({ onOpenModal, onContextSelect, onFormSubmit }) {
               Trusted by UK Businesses
             </span>
 
-            <h1>{HERO.headline}</h1>
+            <h1>
+              Take Payments Faster. Pay Less.{' '}
+              <br className="hero__h1-br" />
+              Flexible Eligibility Criteria For{' '}
+              <span className="hero__blink">Limited Time.</span>
+            </h1>
 
             <p className="hero__lead">{HERO.subtext}</p>
 
