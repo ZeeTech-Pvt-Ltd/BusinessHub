@@ -4,7 +4,7 @@ import { SOLUTIONS } from '../data/content';
 const images = [
   '/images/card-machine.jpg',
   '/images/epos-system.jpg',
-  '/images/integrated.jpg',
+  '/images/integrated.png',
 ];
 
 export default function ChooseSolution({ onContextSelect }) {

@@ -18,7 +18,6 @@ import WhyChooseUs from './components/WhyChooseUs';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import EnquiryModal from './components/EnquiryModal';
-import WhatsAppFloat from './components/WhatsAppFloat';
 import ThankYou from './components/ThankYou';
 
 export default function App() {
@@ -48,7 +47,6 @@ export default function App() {
       <>
         <Header />
         <ThankYou onBack={handleBackToHome} />
-        <WhatsAppFloat />
       </>
     );
   }
@@ -97,7 +95,6 @@ export default function App() {
       </main>
 
       <EnquiryModal prefill={modalPrefill} onClose={handleCloseModal} onFormSubmit={handleFormSubmit} />
-      <WhatsAppFloat />
     </>
   );
 }
