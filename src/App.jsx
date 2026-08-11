@@ -81,7 +81,7 @@ export default function App() {
 
         <ProviderComparison onContextSelect={handleContextSelect} />
 
-        <SwitcherMicroFunnel />
+        <SwitcherMicroFunnel onFormSubmit={handleFormSubmit} />
 
         <CaseStudies onContextSelect={handleContextSelect} />
 

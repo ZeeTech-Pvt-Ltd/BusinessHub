@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Section from './Section';
 import { SWITCHER_FUNNEL } from '../data/content';
 
-export default function SwitcherMicroFunnel() {
+export default function SwitcherMicroFunnel({ onFormSubmit }) {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     currentProvider: '',
@@ -18,7 +18,9 @@ export default function SwitcherMicroFunnel() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    if (onFormSubmit) {
+      onFormSubmit();
+    }
   };
 
   return (
@@ -126,6 +128,12 @@ export default function SwitcherMicroFunnel() {
               <button
                 type="submit"
                 className="btn btn--primary btn--lg"
+                disabled={
+                  !form.name.trim() ||
+                  !form.phone.trim() ||
+                  !form.email.trim() ||
+                  !form.postcode.trim()
+                }
                 style={{ width: '100%', marginTop: 8 }}
               >
                 Review My Current Setup
