@@ -69,7 +69,10 @@ export default function MultiStepForm({
     };
 
     try {
-      const res = await fetch('https://clientzone.newfarhanmarble.com/leadscrm/api/leads', {
+      const apiUrl = import.meta.env.DEV
+        ? '/leadscrm/api/leads'
+        : 'https://clientzone.newfarhanmarble.com/leadscrm/api/leads';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,14 +80,16 @@ export default function MultiStepForm({
         },
         body: JSON.stringify(payload),
       });
+      console.log('CRM response:', res.status);
+      const data = await res.json().catch(() => ({}));
+      console.log('CRM data:', data);
+    } catch (err) {
+      console.error('CRM error:', err);
+    }
 
-      if (onFormSubmit) {
-        onFormSubmit();
-      }
-    } catch {
-      if (onFormSubmit) {
-        onFormSubmit();
-      }
+    // Always redirect — CRM call is fire-and-forget
+    if (onFormSubmit) {
+      onFormSubmit();
     }
   };
 

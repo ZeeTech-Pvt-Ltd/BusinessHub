@@ -41,7 +41,10 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
     };
 
     try {
-      await fetch('https://clientzone.newfarhanmarble.com/leadscrm/api/leads', {
+      const apiUrl = import.meta.env.DEV
+        ? '/leadscrm/api/leads'
+        : 'https://clientzone.newfarhanmarble.com/leadscrm/api/leads';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +52,10 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
         },
         body: JSON.stringify(payload),
       });
-    } catch {}
+      console.log('CRM response:', res.status);
+    } catch (err) {
+      console.error('CRM error:', err);
+    }
 
     if (onFormSubmit) {
       onFormSubmit();
