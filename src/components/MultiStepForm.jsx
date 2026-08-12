@@ -8,12 +8,14 @@ export default function MultiStepForm({
   onFormSubmit,
 }) {
   const [step, setStep] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     service: prefill.service || prefill.machineType || '',
     businessType: prefill.businessType || '',
     postcode: '',
     turnover: '',
     legalEntity: '',
+    businessName: '',
     fullName: '',
     phone: '',
     email: '',
@@ -35,6 +37,7 @@ export default function MultiStepForm({
     }
     if (step === 4) {
       return (
+        formData.businessName.trim().length > 0 &&
         formData.fullName.trim().length > 0 &&
         formData.phone.trim().length > 0 &&
         formData.email.trim().length > 0
@@ -43,10 +46,45 @@ export default function MultiStepForm({
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (onFormSubmit) {
-      onFormSubmit();
+    if (submitting) return;
+    setSubmitting(true);
+
+    const payload = {
+      interest: formData.service || 'Website enquiry',
+      business_type: formData.businessType,
+      first_name: formData.fullName.trim(),
+      business_name: formData.businessName.trim(),
+      phone: formData.phone.trim(),
+      email: formData.email.trim(),
+      postcode: formData.postcode.trim(),
+      custom_1: formData.legalEntity,
+      custom_2: formData.turnover,
+      custom_3: '',
+      custom_4: '',
+      custom_5: '',
+      source_url: window.location.href,
+      lead_source: 'Website form',
+    };
+
+    try {
+      const res = await fetch('https://clientzone.newfarhanmarble.com/leadscrm/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': 'bbh_lead_a7f3k9m2x8q4w6z1p5n0r8t2u4v6y8',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (onFormSubmit) {
+        onFormSubmit();
+      }
+    } catch {
+      if (onFormSubmit) {
+        onFormSubmit();
+      }
     }
   };
 
@@ -134,6 +172,15 @@ export default function MultiStepForm({
     <div className="form-step">
       <h4 style={{ marginBottom: 16 }}>Where should we send your options?</h4>
       <div className="form-group">
+        <label>Business Name</label>
+        <input
+          type="text"
+          placeholder="Your business name"
+          value={formData.businessName}
+          onChange={(e) => updateField('businessName', e.target.value)}
+        />
+      </div>
+      <div className="form-group">
         <label>Full Name</label>
         <input
           type="text"
@@ -164,9 +211,9 @@ export default function MultiStepForm({
         type="submit"
         className="btn btn--primary btn--lg"
         style={{ width: '100%', marginTop: 8 }}
-        disabled={!canContinue()}
+        disabled={submitting || !canContinue()}
       >
-        Get My Free Quote
+        {submitting ? 'Sending…' : 'Get My Free Quote'}
       </button>
       <p
         style={{

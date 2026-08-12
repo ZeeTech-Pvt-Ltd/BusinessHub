@@ -4,10 +4,12 @@ import { SWITCHER_FUNNEL } from '../data/content';
 
 export default function SwitcherMicroFunnel({ onFormSubmit }) {
   const [step, setStep] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     currentProvider: '',
     turnover: '',
     improvement: '',
+    businessName: '',
     name: '',
     phone: '',
     email: '',
@@ -16,8 +18,39 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
 
   const update = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    const payload = {
+      interest: 'Switch Current Provider',
+      business_type: '',
+      first_name: form.name.trim(),
+      business_name: form.businessName.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      postcode: form.postcode.trim(),
+      custom_1: form.currentProvider,
+      custom_2: form.turnover,
+      custom_3: form.improvement,
+      custom_4: '',
+      custom_5: '',
+      source_url: window.location.href,
+      lead_source: 'Website form',
+    };
+
+    try {
+      await fetch('https://clientzone.newfarhanmarble.com/leadscrm/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': 'bbh_lead_a7f3k9m2x8q4w6z1p5n0r8t2u4v6y8',
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch {}
+
     if (onFormSubmit) {
       onFormSubmit();
     }
@@ -102,6 +135,15 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
           {step === 4 && (
             <div className="form-step">
               <h4 style={{ marginBottom: 16 }}>Your Details</h4>
+              <div className="form-group">
+                <label>Business Name</label>
+                <input
+                  type="text"
+                  placeholder="Your business name"
+                  value={form.businessName}
+                  onChange={(e) => update('businessName', e.target.value)}
+                />
+              </div>
               {['name', 'phone', 'email', 'postcode'].map((field) => (
                 <div className="form-group" key={field}>
                   <label>
@@ -129,6 +171,8 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
                 type="submit"
                 className="btn btn--primary btn--lg"
                 disabled={
+                  submitting ||
+                  !form.businessName.trim() ||
                   !form.name.trim() ||
                   !form.phone.trim() ||
                   !form.email.trim() ||
@@ -136,7 +180,7 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
                 }
                 style={{ width: '100%', marginTop: 8 }}
               >
-                Review My Current Setup
+                {submitting ? 'Sending…' : 'Review My Current Setup'}
               </button>
               <p style={{ textAlign: 'center', fontSize: '0.8rem', color: '#777', marginTop: 12 }}>
                 Free • No obligation • We will not contact your existing provider
