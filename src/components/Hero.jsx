@@ -23,11 +23,6 @@ export default function Hero({ onOpenModal, onContextSelect, onFormSubmit }) {
       <div className="container hero__container">
         <div className="hero__inner">
           <div className="hero__content">
-            <span className="hero__badge">
-              <span className="hero__badge-dot" />
-              Trusted by UK Businesses
-            </span>
-
             <h1>
               Take Payments Faster. Pay Less.{' '}
               <br className="hero__h1-br" />
