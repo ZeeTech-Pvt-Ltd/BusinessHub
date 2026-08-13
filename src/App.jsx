@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import TrustStrip from './components/TrustStrip';
@@ -23,7 +23,19 @@ import ThankYou from './components/ThankYou';
 
 export default function App() {
   const [modalPrefill, setModalPrefill] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [page, setPage] = useState(
+    () => (window.location.pathname === '/thank-you' ? 'thank-you' : 'home')
+  );
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setPage(window.location.pathname === '/thank-you' ? 'thank-you' : 'home');
+      window.scrollTo({ top: 0 });
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleContextSelect = useCallback((context) => {
     setModalPrefill(context);
@@ -35,15 +47,18 @@ export default function App() {
 
   const handleFormSubmit = useCallback(() => {
     setModalPrefill(null);
-    setSubmitted(true);
+    window.history.pushState({}, '', '/thank-you');
+    setPage('thank-you');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const handleBackToHome = useCallback(() => {
-    setSubmitted(false);
+    window.history.pushState({}, '', '/');
+    setPage('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  if (submitted) {
+  if (page === 'thank-you') {
     return (
       <>
         <Header />
