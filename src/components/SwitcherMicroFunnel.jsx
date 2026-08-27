@@ -25,7 +25,7 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
 
     const payload = {
       interest: 'Switch Current Provider',
-      business_type: '',
+      business_type: 'Not specified',
       first_name: form.name.trim(),
       business_name: form.businessName.trim(),
       phone: form.phone.trim(),
@@ -44,15 +44,18 @@ export default function SwitcherMicroFunnel({ onFormSubmit }) {
       const apiUrl = import.meta.env.DEV
         ? '/leadscrm/api/leads'
         : 'https://clientzone.newfarhanmarble.com/leadscrm/api/leads';
+      const body = new URLSearchParams(payload).toString();
       const res = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'X-API-Key': 'bbh_lead_a7f3k9m2x8q4w6z1p5n0r8t2u4v6y8',
         },
-        body: JSON.stringify(payload),
+        body,
       });
       console.log('CRM response:', res.status);
+      const data = await res.json().catch(() => ({}));
+      console.log('CRM data:', data);
     } catch (err) {
       console.error('CRM error:', err);
     }
