@@ -24,7 +24,7 @@ export const HERO = {
     '£0 upfront options available*',
     '£0 line rental options available*',
     'Competitive transaction rates*',
-    'Countertop, portable & mobile terminals',
+    '£0 cancellation charge*',
     'Integrated EPOS options',
     'Free, no-obligation consultation',
   ],
